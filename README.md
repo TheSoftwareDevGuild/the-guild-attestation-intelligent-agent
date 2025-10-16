@@ -1,24 +1,27 @@
-# The Guild Attestation Intelligent Agent (AI Agent)
+# Hackathon Attestations AI Agent by The Guild
 *This is an EthOnline 2025 Hackathon projet*
+
 
 ## Project Presentation
 
-We want to create an AI Agent to help The Guild explore, manage and create on-chain attestations.
+We want to create an AI Agent to help Hackathon participants explore past Hackathon projects for inspiration. Also this Agent could act as a judge and emit attestations.
 
-See [The Guild](theguild.dev) for more information about The Guild, a peer‑run organization for software developers.
+This project is in the context of a longer term project, [The Guild Attestation Intelligent Agent](./ATTESTATION_INTELLIGENT_AGENT.md), by [The Guild](theguild.dev)
 
 ### Problem Statement
-The goal of this Agent is to solve two problems The Guild has:
-- Explore, navigate attestatios ([EAS](https://attest.org)): There are so many kind of attestations and they are hard to navigate. The Guild itself creates attestations for its users but an Agent could help organize them better.
-- Create badges for Guild contributors. We currently have a lot of contributor activity and it is hard to keep u and more importantly assess contribution work and give appropriate badges for it.
+Hackathons are a great way for devs to train their skills and build a portfolio.
+Unfortunately, the data around that is scattered in multiple organization, which prevents discovery around past projects and portfolio building.
 
 ### Solution
-We build an AI Agent (RAG, Agentic System) that uses attestation history and also possibly relevant github history to solve these problems.
-Considering having the Agent write a newslatter about attestations too.
+Blockchain acts as the universal API (and EAS in this specific case) and is therefore the perfect solution.
+Sprinkle some AI on top of it to digest the enormous amount of data and you get the Hackathon Attestations AI Agent.
+The Hackathon Attestations AI Agent is an Agent that uses RAG on past Hackathon attestations to help participants navigate past projects.
+It also uses votes and assessments from past hackathons to make their own judgement.
 
 ### Sponsor tracks
 - Envio: to fetch massive amounts of attestation data
 - ASI: to decentralize the AI stack
+- Hardhat for the contracts?
 
 ## Project Progress
 
@@ -37,25 +40,16 @@ It included:
 - Use EAS GraphQL to enrich this data with attestation data field
 - Analyze attestations to look for patterns such as github links
 
-Scope of the Hackathon: The AI Hackathon explorer =>Give ideas and feedback
-- Run RAG on hackathon attestation data
-- Build a data visualization dashboard for hackathon attestation data
-- 
+Interesting Data:
 
-TODO:
-- [ ] Build an attestation dataset
-- [ ] Build a "Best OSS Github repo code" dataset
-- [ ] Build a RAG that would help navigate attestations
-- [ ] Integrate github data into the RAG
-- [ ] Agentic: fetch contributor code
-- [ ] Agentic: decide to emit attestations for this code
-- [ ] Solidity: build badge pointers
-
-Idea for the Hackathon:
-Hackathon explorer:
 Arbitrum
 1735 quadratic attestations onchain: the votes for different projects
 1556 attestations onchain "DEVFOLIO ONCHAIN CREDENTIALS ATTESTATIONS": You participated in hackathon X
 - devfolio dataset of quadratic voting and attestations
 - rag helps explore what has already been done and what was successful too
-- we could have
+
+## Hackathon roles
+- Data analysis and AI: Mine hackathon attestation data and build a RAG - (Antoine)
+- Assist with Data Analysis and AI: Enrich RAG with github data, make an agent, help with ASI integration
+- Front End: Display hackathon attestation data in a nice dashboard with analytics, create attestation request for the Agent
+- Smart Contracts: Create a smart contract suite for a Registry of Hackathon submissions for the Agent. The Agent can then emit attestations for the submissions. Also we could have a voting dynamic to testify submission autenticity and prevent SPAM.
