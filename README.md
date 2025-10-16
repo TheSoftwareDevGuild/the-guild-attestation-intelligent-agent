@@ -37,6 +37,11 @@ It included:
 - Use EAS GraphQL to enrich this data with attestation data field
 - Analyze attestations to look for patterns such as github links
 
+Scope of the Hackathon: The AI Hackathon explorer =>Give ideas and feedback
+- Run RAG on hackathon attestation data
+- Build a data visualization dashboard for hackathon attestation data
+- 
+
 TODO:
 - [ ] Build an attestation dataset
 - [ ] Build a "Best OSS Github repo code" dataset
