@@ -22,4 +22,9 @@ dependencies = [
     "hypersync>=0.8.5",
     "web3>=7.13.0",
     "matplotlib>=3.10.7",
+    "requests>=2.32.5",
+    "beautifulsoup4>=4.14.2",
+    "lxml>=6.0.2",
+    "llama-index>=0.14.5",
+    "llama-index-readers-web>=0.5.5",
 ]

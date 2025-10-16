@@ -1,7 +1,6 @@
 # Hackathon Attestations AI Agent by The Guild
 *This is an EthOnline 2025 Hackathon projet*
 
-
 ## Project Presentation
 
 We want to create an AI Agent to help Hackathon participants explore past Hackathon projects for inspiration. Also this Agent could act as a judge and emit attestations.
