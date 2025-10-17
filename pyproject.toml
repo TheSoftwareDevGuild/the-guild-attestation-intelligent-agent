@@ -1,7 +1,7 @@
 [project]
-name = "ai-bootcamp-dev-repo"
+name = "the-guild-attestation-intelligent-agent"
 version = "0.1.0"
-description = "Add your description here"
+description = "We want to create an AI Agent to help Hackathon participants explore past Hackathon projects for inspiration."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
