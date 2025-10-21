@@ -173,8 +173,16 @@ def rag_pipeline(question, qdrant_client, top_k=5):
 
 
 def rag_pipeline_wrapper(question, top_k=5):
-
-    qdrant_client = QdrantClient(url="http://qdrant:6333")
+    from src.api.core.config import config
+    
+    # Use Qdrant Cloud in production, local in development
+    if config.QDRANT_API_KEY:
+        qdrant_client = QdrantClient(
+            url=config.QDRANT_URL,
+            api_key=config.QDRANT_API_KEY
+        )
+    else:
+        qdrant_client = QdrantClient(url="http://qdrant:6333")
 
     result = rag_pipeline(question, qdrant_client, top_k)
 

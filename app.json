@@ -1,0 +1,41 @@
+{
+  "name": "attestation-intelligent-agent",
+  "description": "AI Agent to help Hackathon participants explore past Hackathon projects for inspiration",
+  "repository": "https://github.com/your-username/the-guild-attestation-intelligent-agent",
+  "logo": "",
+  "keywords": ["python", "fastapi", "streamlit", "qdrant", "ai", "rag"],
+  "stack": "heroku-22",
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "env": {
+    "OPENAI_API_KEY": {
+      "description": "Your OpenAI API key",
+      "required": true
+    },
+    "GROQ_API_KEY": {
+      "description": "Your Groq API key",
+      "required": false
+    },
+    "GOOGLE_API_KEY": {
+      "description": "Your Google API key",
+      "required": false
+    },
+    "QDRANT_URL": {
+      "description": "Your Qdrant Cloud cluster URL",
+      "required": true
+    },
+    "QDRANT_API_KEY": {
+      "description": "Your Qdrant Cloud API key",
+      "required": true
+    }
+  }
+}
