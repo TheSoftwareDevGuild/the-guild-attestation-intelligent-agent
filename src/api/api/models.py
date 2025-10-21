@@ -4,6 +4,7 @@ from typing import Optional, List
 
 class RAGRequest(BaseModel):
     query: str = Field(..., description="The query to be used in the RAG pipeline")
+    password: str = Field(..., description="Application password for authentication")
 
 
 class RAGUsedContext(BaseModel):

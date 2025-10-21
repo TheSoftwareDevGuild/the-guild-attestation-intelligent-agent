@@ -57,7 +57,24 @@ if "used_context" not in st.session_state:
 
 with st.sidebar:
     # Create tabs in the sidebar
-    suggestions_tab, = st.tabs(["🔍 Suggestions"])
+    suggestions_tab, settings_tab = st.tabs(["🔍 Suggestions", "⚙️ Settings"])
+    
+    # Settings Tab
+    with settings_tab:
+        st.subheader("Authentication")
+        
+        # Password input
+        app_password = st.text_input(
+            "Application Password", 
+            type="password",
+            help="Enter the application password to access the API",
+            placeholder="Enter password..."
+        )
+        
+        if app_password:
+            st.success("✅ Password entered")
+        else:
+            st.warning("⚠️ Please enter the password")
     
     # Suggestions Tab
     with suggestions_tab:
@@ -79,13 +96,29 @@ if prompt := st.chat_input("Hello! How can I assist you today?"):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        status, output = api_call("post", f"{config.API_URL}/rag", json={"query": prompt})
-        answer = output["answer"]
-        used_context = output["used_context"]
+        # Check if password is provided
+        if not app_password:
+            st.error("❌ Please enter the application password in the Settings tab")
+        else:
+            # Prepare request payload with password
+            payload = {
+                "query": prompt,
+                "password": app_password
+            }
+            
+            status, output = api_call("post", f"{config.API_URL}/rag", json=payload)
+            
+            if status:
+                answer = output["answer"]
+                used_context = output["used_context"]
+                st.session_state.used_context = used_context
+                st.write(answer)
+                st.session_state.messages.append({"role": "assistant", "content": answer})
+            else:
+                error_msg = output.get("detail", "Unknown error occurred")
+                if "Invalid password" in error_msg:
+                    st.error("❌ Invalid password. Please check your password in the Settings tab.")
+                else:
+                    st.error(f"❌ Error: {error_msg}")
 
-        st.session_state.used_context = used_context
-
-        st.write(answer)
-
-    st.session_state.messages.append({"role": "assistant", "content": answer})
     st.rerun()
