@@ -13,7 +13,7 @@ prompts:
 
     Instructions:
     - You need to answer the question based on the provided context only.
-    - Never use word context and refer to it as the available products.
+    - Never use word context and refer to it as the available attestations.
     - As an output you need to provide:
 
     * The answer to the question based on the provided context.
