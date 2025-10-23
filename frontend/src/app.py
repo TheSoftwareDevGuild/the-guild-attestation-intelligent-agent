@@ -14,6 +14,16 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# Add compact header
+st.markdown("""
+<div style="text-align: center; padding: 0.5rem 0; border-bottom: 1px solid #e0e0e0; margin-bottom: 1rem;">
+    <h2 style="margin: 0; color: #1f2937; font-size: 1.5rem; display: inline;">🏆 Hackathon Assistant</h2>
+    <span style="color: #6b7280; font-size: 1rem; margin-left: 0.5rem;">
+        by <a href="https://theguild.dev" target="_blank" style="color: #3b82f6; text-decoration: none;">The Guild</a>
+    </span>
+</div>
+""", unsafe_allow_html=True)
+
 
 def api_call(method, url, **kwargs):
 
