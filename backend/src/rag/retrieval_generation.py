@@ -1,4 +1,3 @@
-import json
 import openai
 import instructor
 import numpy as np
@@ -9,7 +8,8 @@ from langsmith import traceable, get_current_run_tree
 from qdrant_client import QdrantClient
 from qdrant_client.models import Filter, FieldCondition, MatchValue, Prefetch, FusionQuery, Document
 
-from api.rag.utils.prompt_management import prompt_template_config
+from rag.utils.prompt_management import prompt_template_config
+from src.core.config import config
 
 
 class RAGUsedContext(BaseModel):
@@ -116,7 +116,7 @@ def process_context(context):
 )
 def build_prompt(preprocessed_context, question):
 
-    template = prompt_template_config("src/api/rag/prompts/retrieval_generation.yaml", "retrieval_generation")
+    template = prompt_template_config("src/rag/prompts/retrieval_generation.yaml", "retrieval_generation")
     rendered_prompt = template.render(preprocessed_context=preprocessed_context, question=question)
 
     return rendered_prompt
@@ -173,7 +173,6 @@ def rag_pipeline(question, qdrant_client, top_k=5):
 
 
 def rag_pipeline_wrapper(question, top_k=5):
-    from src.api.core.config import config
     
     # Use Qdrant Cloud in production, local in development
     if config.QDRANT_API_KEY:

@@ -99,13 +99,14 @@ if prompt := st.chat_input("Hello! How can I assist you today?"):
         # Check if password is provided
         if not app_password:
             st.error("❌ Please enter the application password in the Settings tab")
+            # error should be displayed in the chat
+            st.session_state.messages.append({"role": "assistant", "content": "❌ Please enter the application password in the Settings tab"})
         else:
             # Prepare request payload with password
             payload = {
                 "query": prompt,
                 "password": app_password
             }
-            
             status, output = api_call("post", f"{config.API_URL}/rag", json=payload)
             
             if status:

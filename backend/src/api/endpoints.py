@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Request, HTTPException, status
-from src.api.api.models import RAGUsedContext, RAGRequest, RAGResponse
-from src.api.core.config import config
+from src.api.models import RAGUsedContext, RAGRequest, RAGResponse
+from src.core.config import config
 import logging
-from api.rag.retrieval_generation import rag_pipeline_wrapper
+from src.rag.retrieval_generation import rag_pipeline_wrapper
 
 
 
@@ -14,7 +14,7 @@ def rag(
     request: Request,
     payload: RAGRequest
 ) -> RAGResponse:
-    
+
     # Verify password
     if payload.password != config.APP_PASSWORD:
         raise HTTPException(
@@ -32,3 +32,8 @@ def rag(
 
 api_router=APIRouter()
 api_router.include_router(rag_router,prefix="/rag",tags=["rag"])
+
+# health check
+@api_router.get("/health")
+def health():
+    return {"status": "healthy", "message": "API is running"}
