@@ -75,19 +75,16 @@ def retrieve_data(query, qdrant_client, k=5):
 
     retrieved_context_ids = []
     retrieved_context = []
-    #retrieved_context_ratings = []
     similarity_scores = []
 
     for result in results.points:
         retrieved_context_ids.append(result.payload["id"])
         retrieved_context.append(result.payload["vectorization_data"])
-        #retrieved_context_ratings.append(result.payload["average_rating"])
         similarity_scores.append(result.score)
 
     return {
         "retrieved_context_ids": retrieved_context_ids,
         "retrieved_context": retrieved_context,
-        #"retrieved_context_ratings": retrieved_context_ratings,
         "similarity_scores": similarity_scores,
     }
 
@@ -103,7 +100,6 @@ def process_context(context):
     for id, chunk in zip(
             context["retrieved_context_ids"], 
             context["retrieved_context"], 
-            #context["retrieved_context_ratings"]
         ):
         formatted_context += f"- ID: {id}, description: {chunk}\n"
 
@@ -188,6 +184,9 @@ def rag_pipeline_wrapper(question, top_k=5):
     used_context = []
     dummy_vector = np.zeros(1536).tolist()
 
+    # that part if only useful to fetch non-vectorized data
+    # such as attester address
+    # this could be removed as we don't return attester address in the response
     for item in result.get("references", []):
         payload = qdrant_client.query_points(
             collection_name="Hackathon-attestation-collection-01-hybrid-search",
@@ -211,3 +210,16 @@ def rag_pipeline_wrapper(question, top_k=5):
         "answer": result["answer"],
         "used_context": used_context
     }
+
+def retrieve_context_wrapper(query, top_k=5):
+    
+    # Use Qdrant Cloud in production, local in development
+    if config.QDRANT_API_KEY:
+        qdrant_client = QdrantClient(
+            url=config.QDRANT_URL,
+            api_key=config.QDRANT_API_KEY
+        )
+    else:
+        qdrant_client = QdrantClient(url="http://qdrant:6333")
+
+    return retrieve_data(query, qdrant_client, top_k)

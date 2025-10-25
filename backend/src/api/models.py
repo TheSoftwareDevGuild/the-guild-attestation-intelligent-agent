@@ -16,3 +16,9 @@ class RAGResponse(BaseModel):
     request_id: str = Field(..., description="The request ID")
     answer: str = Field(..., description="The answer to the query")
     used_context: List[RAGUsedContext] = Field(..., description="Information about attestations used to answer the query")
+
+class RAGRetrieveContextResponse(BaseModel):
+    request_id: str = Field(..., description="The request ID")
+    retrieved_context_ids: List[str] = Field(..., description="The IDs of the retrieved attestations")
+    retrieved_context: List[str] = Field(..., description="The context of the retrieved attestations")
+    similarity_scores: List[float] = Field(..., description="Similarity scores of the retrieved attestations")

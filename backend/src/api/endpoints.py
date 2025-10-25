@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Request, HTTPException, status
-from src.api.models import RAGUsedContext, RAGRequest, RAGResponse
+from src.api.models import RAGRetrieveContextResponse, RAGUsedContext, RAGRequest, RAGResponse
 from src.core.config import config
 import logging
-from src.rag.retrieval_generation import rag_pipeline_wrapper
+from src.rag.retrieval_generation import rag_pipeline_wrapper, retrieve_context_wrapper
 
 
 
@@ -28,6 +28,28 @@ def rag(
         request_id=request.state.request_id,
         answer=answer["answer"],
         used_context=[RAGUsedContext(**used_context) for used_context in answer["used_context"]]
+    )
+
+@rag_router.post("/retrieve_context")
+def retrieve_context(
+    request: Request,
+    payload: RAGRequest
+) -> RAGRetrieveContextResponse:
+
+    # Verify password
+    if payload.password != config.APP_PASSWORD:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid password"
+        )
+
+    result = retrieve_context_wrapper(payload.query)
+
+    return RAGRetrieveContextResponse(
+        request_id=request.state.request_id,
+        retrieved_context_ids=result["retrieved_context_ids"],
+        retrieved_context=result["retrieved_context"],
+        similarity_scores=result["similarity_scores"]
     )
 
 api_router=APIRouter()
