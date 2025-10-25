@@ -20,7 +20,6 @@ It also uses votes and assessments from past hackathons to make their own judgem
 ### Sponsor tracks
 - Envio: to fetch massive amounts of attestation data
 - ASI: to decentralize the AI stack
-- Hardhat for the contracts?
 
 **ASI Prize Eligibility**: This project demonstrates the full ASI ecosystem by deploying multi-agent RAG systems on Agentverse, making them discoverable through ASI One's chat interface, and building towards an AI judge using MeTTa for decentralized attestation validation.
 
