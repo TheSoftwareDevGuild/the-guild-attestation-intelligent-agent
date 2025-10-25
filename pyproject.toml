@@ -13,7 +13,7 @@ dependencies = [
     "pydantic>=2.11.9",
     "streamlit>=1.50.0",
     "pandas==2.2.3",
-    "fastapi>=0.118.0", 
+    "fastapi>=0.118.0",
     "uvicorn>=0.37.0",
     "qdrant-client>=1.15.1",
     "langsmith>=0.4.32",
@@ -28,4 +28,5 @@ dependencies = [
     "llama-index>=0.14.5",
     "llama-index-readers-web>=0.5.5",
     "fastembed>=0.7.3",
+    "uagents>=0.22.10",
 ]
